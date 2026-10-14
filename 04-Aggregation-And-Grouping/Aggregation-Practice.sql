@@ -1,0 +1,14 @@
+USE sql_notes;
+SELECT COUNT(*) FROM students;
+SELECT COUNT(*), COUNT(email) FROM students;
+SELECT SUM(marks_obtained), ROUND(AVG(marks_obtained), 2) FROM marks;
+SELECT MIN(marks_obtained), MAX(marks_obtained) FROM marks;
+SELECT COUNT(DISTINCT grade) FROM marks;
+SELECT dept_id, COUNT(*) FROM students GROUP BY dept_id;
+SELECT student_id, COUNT(*) FROM enrollments GROUP BY student_id;
+SELECT e.student_id, ROUND(AVG(m.marks_obtained), 2) FROM enrollments e JOIN marks m ON m.enrollment_id = e.enrollment_id GROUP BY e.student_id;
+SELECT grade, COUNT(*) FROM marks GROUP BY grade;
+SELECT student_id, COUNT(*) FROM enrollments GROUP BY student_id HAVING COUNT(*) > 1;
+SELECT e.student_id, AVG(m.marks_obtained) FROM enrollments e JOIN marks m ON m.enrollment_id = e.enrollment_id GROUP BY e.student_id HAVING AVG(m.marks_obtained) >= 80;
+SELECT course_id, COUNT(*) FROM enrollments GROUP BY course_id HAVING COUNT(*) >= 2;
+SELECT dept_id, COUNT(*) FROM students GROUP BY dept_id HAVING COUNT(*) >= 2;
