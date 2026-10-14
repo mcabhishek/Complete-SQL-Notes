@@ -1,0 +1,15 @@
+﻿USE sql_notes;
+SHOW KEYS FROM students WHERE Key_name='PRIMARY';
+SELECT CONSTRAINT_NAME,REFERENCED_TABLE_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA='sql_notes' AND TABLE_NAME='students' AND REFERENCED_TABLE_NAME IS NOT NULL;
+START TRANSACTION;
+ROLLBACK;
+DESCRIBE students;
+SELECT c.course_name FROM students s JOIN enrollments e ON s.student_id=e.student_id JOIN courses c ON e.course_id=c.course_id WHERE s.name='Abhishek';
+SELECT name FROM students WHERE dept_id=1;
+SELECT e.enrollment_id,m.marks_obtained FROM enrollments e JOIN marks m ON m.enrollment_id=e.enrollment_id WHERE e.enrollment_id=1;
+SELECT COUNT(*) AS orphans FROM enrollments e LEFT JOIN students s ON e.student_id=s.student_id WHERE s.student_id IS NULL;
+SHOW KEYS FROM enrollments WHERE Key_name='uq_enroll';
+SELECT d.hod_name FROM students s JOIN departments d ON s.dept_id=d.dept_id WHERE s.name='Abhishek';
+SELECT TABLE_NAME,CONSTRAINT_NAME,DELETE_RULE,UPDATE_RULE FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS WHERE CONSTRAINT_SCHEMA='sql_notes';
+SELECT COUNT(*) FROM students WHERE dept_id=1;
+SELECT s.name,d.dept_name FROM students s JOIN departments d ON s.dept_id=d.dept_id;

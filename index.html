@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete SQL Notes — Learn SQL from Zero to Advanced</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--wine:#6d0a1e;--wine-dark:#43040f;--wine-light:#a31621;--wine-soft:#fbe9ec;--cream:#fff9f4;--gold:#e8b44a;--gold-light:#f7d789;--ink:#2b1216;--muted:#7a5a5e;--card:#ffffff;--line:#ecd4d8}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.65}
+a{color:var(--wine);text-decoration:none}a:hover{text-decoration:underline}
+.topbar{position:sticky;top:0;z-index:50;background:var(--wine-dark);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.topbar .logo{background:var(--gold);color:var(--wine-dark);font-weight:800;padding:6px 12px;border-radius:10px}
+.topbar nav{display:flex;gap:14px;flex-wrap:wrap;margin-left:auto}
+.topbar nav a{color:#ffe9ec;font-size:14px;font-weight:600}
+.hero{background:linear-gradient(135deg,var(--wine-dark),var(--wine) 55%,var(--wine-light));color:#fff;text-align:center;padding:64px 20px 54px}
+.hero .pill{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);padding:6px 16px;border-radius:999px;font-size:13px;letter-spacing:1px;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,5vw,50px);margin-bottom:12px}
+.hero h1 span{color:var(--gold-light)}
+.hero p{max-width:760px;margin:0 auto 10px;color:#ffe3e7}
+.btnrow{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 24px;border-radius:12px;font-weight:700;border:2px solid transparent}
+.btn-gold{background:var(--gold);color:var(--wine-dark)}
+.btn-ghost{border-color:#fff;color:#fff}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 20px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:-34px auto 10px;max-width:1100px;padding:0 20px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;text-align:center;padding:16px;box-shadow:0 6px 18px rgba(109,10,30,.08)}
+.stat b{font-size:26px;color:var(--wine);display:block}
+.section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin:22px 0}
+.section h2{color:var(--wine);margin-bottom:6px;border-left:6px solid var(--gold);padding-left:12px}
+.sub{color:var(--muted);margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff}
+.card h3{color:var(--wine);font-size:17px;margin-bottom:6px}
+.badge{display:inline-block;background:var(--wine-soft);color:var(--wine);font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+ul.tight li{margin:6px 0}ul.tight{padding-left:20px}
+details.ch{border:1px solid var(--line);border-radius:12px;margin:10px 0;background:#fff;overflow:hidden}
+details.ch summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;background:var(--wine);list-style:none}
+details.ch summary::-webkit-details-marker{display:none}
+details.ch .body{padding:14px 18px}
+code{background:#2b1216;color:#ffd9de;padding:2px 7px;border-radius:6px;font-size:13px}
+pre{background:#2b1216;color:#ffe9ec;padding:16px;border-radius:12px;overflow:auto;font-size:13px;margin:10px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th{background:var(--wine);color:#fff;padding:10px;text-align:left}
+td{border:1px solid var(--line);padding:9px}tr:nth-child(even) td{background:#fff7f8}
+.steps li{margin:8px 0}ol.steps{padding-left:22px}
+.footer{background:var(--wine-dark);color:#e9c9ce;text-align:center;padding:30px 20px;margin-top:26px}
+.footer a{color:var(--gold-light)}
+@media(max-width:640px){.topbar nav{width:100%}.section{padding:18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="logo">SQL</div><b>Complete SQL Notes</b><nav><a href="#start">Start</a><a href="#roadmap">Roadmap</a><a href="#chapters">Chapters</a><a href="#database">Database</a><a href="#practice">Practice</a><a href="README.md">README</a></nav></div>
+<header class="hero"><div class="pill">MYSQL 8.0+ &bull; BEGINNER TO ADVANCED</div><h1>Complete SQL Notes <span>— Zero to Advanced</span></h1><p>One college database. Five students. Every concept explained in simple English with runnable queries, expected outputs, practice questions and interview points.</p><div class="btnrow"><a class="btn btn-gold" href="#start">Start Learning</a><a class="btn btn-ghost" href="#chapters">Browse Chapters</a></div></header>
+<div class="stats"><div class="stat"><b>57</b>Markdown notes</div><div class="stat"><b>10</b>SQL scripts</div><div class="stat"><b>5</b>Students</div><div class="stat"><b>6</b>Tables</div><div class="stat"><b>190+</b>Practice Q&amp;A</div></div>
+<div class="wrap">
+<section class="section" id="start"><h2>Start Learning</h2><p class="sub">New here? Do this in order.</p><ol class="steps"><li>Read <a href="00-Introduction/What-Is-SQL.md">What Is SQL</a> then <a href="00-Introduction/Database-Basics.md">Database Basics</a>.</li><li>Run the setup in <a href="#quickstart">Quick Start</a> below.</li><li>Study <a href="02-SQL-Basics/SELECT-FROM.md">SELECT</a>, WHERE, ORDER BY, then Joins and Subqueries.</li><li>Solve each *-Practice.sql file before reading answers.</li></ol></section>
+<section class="section" id="quickstart"><h2>Quick Start</h2><p class="sub">Real setup files in this repo.</p><pre>USE sql_notes;
+SOURCE 01-Database-Setup/Create-Database.sql;
+SOURCE 01-Database-Setup/Create-Tables.sql;
+SOURCE 01-Database-Setup/Insert-Sample-Data.sql;</pre><ul class="tight"><li><a href="01-Database-Setup/Create-Database.sql">Create-Database.sql</a></li><li><a href="01-Database-Setup/Create-Tables.sql">Create-Tables.sql</a></li><li><a href="01-Database-Setup/Insert-Sample-Data.sql">Insert-Sample-Data.sql</a></li><li><a href="01-Database-Setup/Reset-Database.sql">Reset-Database.sql</a></li></ul></section>
+<section class="section" id="database"><h2>Sample Database</h2><p class="sub">Same 5 students in every example: Abhishek, Jeevan, Likhith, Jeevitha, Manjunath.</p><table><tr><th>Table</th><th>Columns</th></tr><tr><td>Departments</td><td>dept_id, dept_name, hod_name</td></tr><tr><td>Students</td><td>student_id, name, age, gender, email, dept_id, enrollment_year</td></tr><tr><td>Courses</td><td>course_id, course_name, credits, dept_id</td></tr><tr><td>Enrollments</td><td>enrollment_id, student_id, course_id, semester, academic_year</td></tr><tr><td>Marks</td><td>mark_id, enrollment_id, marks_obtained, max_marks, grade</td></tr><tr><td>Attendance</td><td>attendance_id, student_id, course_id, total_classes, attended_classes, percentage</td></tr></table></section>
+<section class="section" id="roadmap"><h2>Learning Roadmap</h2><p class="sub">Stages 4 and 5 are planned, not yet in the repo.</p><div class="grid"><div class="card"><span class="badge">Stage 1</span><h3>Introduction</h3><ul class="tight"><li><a href="00-Introduction/What-Is-SQL.md">What Is SQL</a></li><li><a href="00-Introduction/Database-Basics.md">Database Basics</a></li><li><a href="00-Introduction/SQL-Command-Types.md">SQL Command Types</a></li></ul></div><div class="card"><span class="badge">Stage 2</span><h3>Setup</h3><ul class="tight"><li><a href="01-Database-Setup/Create-Database.sql">Create Database</a></li><li><a href="01-Database-Setup/Create-Tables.sql">Create Tables</a></li><li><a href="01-Database-Setup/Insert-Sample-Data.sql">Sample Data</a></li></ul></div><div class="card"><span class="badge">Stage 3</span><h3>SQL Basics</h3><ul class="tight"><li><a href="02-SQL-Basics/SELECT-FROM.md">SELECT FROM</a></li><li><a href="02-SQL-Basics/WHERE-Operators.md">WHERE Operators</a></li><li><a href="02-SQL-Basics/DISTINCT-LIMIT.md">DISTINCT LIMIT</a></li><li><a href="02-SQL-Basics/ORDER-BY.md">ORDER BY</a></li></ul></div><div class="card"><span class="badge">Stage 6</span><h3>Joins</h3><a href="#ch-joins">Open chapter</a></div><div class="card"><span class="badge">Stage 7</span><h3>Subqueries</h3><a href="#ch-sub">Open chapter</a></div><div class="card"><span class="badge">Stage 8-10</span><h3>Advanced + Design</h3><a href="#chapters">Open chapters</a></div></div></section>
+<section class="section" id="chapters"><h2>Chapter Navigation</h2><p class="sub">Every link below was checked against real files.</p>
+<details class="ch" open><summary>05 Joins — 7 notes + practice</summary><div class="body"><ul class="tight"><li><a href="05-Joins/INNER-JOIN.md">INNER JOIN</a></li><li><a href="05-Joins/LEFT-JOIN.md">LEFT JOIN</a></li><li><a href="05-Joins/RIGHT-JOIN.md">RIGHT JOIN</a></li><li><a href="05-Joins/FULL-JOIN-Alternatives.md">FULL JOIN Alternatives</a></li><li><a href="05-Joins/CROSS-JOIN.md">CROSS JOIN</a></li><li><a href="05-Joins/SELF-JOIN.md">SELF JOIN</a></li><li><a href="05-Joins/Multiple-Table-Joins.md">Multiple Table Joins</a></li><li><a href="05-Joins/Join-Practice.sql">Join-Practice.sql</a></li></ul></div></details>
+<details class="ch" open id="ch-sub"><summary>06 Subqueries and Set Operations — 6 notes + practice</summary><div class="body"><ul class="tight"><li><a href="06-Subqueries-And-Set-Operations/Subqueries.md">Subqueries</a></li><li><a href="06-Subqueries-And-Set-Operations/Correlated-Subqueries.md">Correlated Subqueries</a></li><li><a href="06-Subqueries-And-Set-Operations/EXISTS-IN-ANY-ALL.md">EXISTS IN ANY ALL</a></li><li><a href="06-Subqueries-And-Set-Operations/NOT-IN-Versus-NOT-EXISTS.md">NOT IN vs NOT EXISTS</a></li><li><a href="06-Subqueries-And-Set-Operations/UNION-UNION-ALL.md">UNION UNION ALL</a></li><li><a href="06-Subqueries-And-Set-Operations/INTERSECT-EXCEPT-Differences.md">INTERSECT EXCEPT Differences</a></li><li><a href="06-Subqueries-And-Set-Operations/Subquery-Practice.sql">Subquery-Practice.sql</a></li></ul></div></details>
+<details class="ch" open id="ch-joins"><summary>07 Data Modification — 7 notes + practice</summary><div class="body"><ul class="tight"><li><a href="07-Data-Modification/INSERT.md">INSERT</a></li><li><a href="07-Data-Modification/UPDATE.md">UPDATE</a></li><li><a href="07-Data-Modification/DELETE.md">DELETE</a></li><li><a href="07-Data-Modification/INSERT-INTO-SELECT.md">INSERT INTO SELECT</a></li><li><a href="07-Data-Modification/Transactions.md">Transactions</a></li><li><a href="07-Data-Modification/COMMIT-ROLLBACK-SAVEPOINT.md">COMMIT ROLLBACK SAVEPOINT</a></li><li><a href="07-Data-Modification/Safe-Data-Modification.md">Safe Data Modification</a></li><li><a href="07-Data-Modification/Data-Modification-Practice.sql">Data-Modification-Practice.sql</a></li></ul></div></details>
+<details class="ch" open><summary>08 Database Design — 11 notes + practice</summary><div class="body"><ul class="tight"><li><a href="08-Database-Design/Constraints.md">Constraints</a></li><li><a href="08-Database-Design/Primary-And-Foreign-Keys.md">Primary And Foreign Keys</a></li><li><a href="08-Database-Design/Unique-Not-Null-Default-Check.md">Unique Not Null Default Check</a></li><li><a href="08-Database-Design/Relationships.md">Relationships</a></li><li><a href="08-Database-Design/ER-Model.md">ER Model</a></li><li><a href="08-Database-Design/Normalization.md">Normalization</a></li><li><a href="08-Database-Design/First-Normal-Form-1NF.md">First Normal Form 1NF</a></li><li><a href="08-Database-Design/Second-Normal-Form-2NF.md">Second Normal Form 2NF</a></li><li><a href="08-Database-Design/Third-Normal-Form-3NF.md">Third Normal Form 3NF</a></li><li><a href="08-Database-Design/Boyce-Codd-Normal-Form-BCNF.md">BCNF</a></li><li><a href="08-Database-Design/Referential-Integrity.md">Referential Integrity</a></li><li><a href="08-Database-Design/Database-Design-Practice.sql">Database-Design-Practice.sql</a></li></ul></div></details>
+<details class="ch" open><summary>09 Advanced SQL — 14 notes + practice</summary><div class="body"><ul class="tight"><li><a href="09-Advanced-SQL/Common-Table-Expressions-CTEs.md">CTEs</a></li><li><a href="09-Advanced-SQL/Recursive-CTEs.md">Recursive CTEs</a></li><li><a href="09-Advanced-SQL/Window-Functions.md">Window Functions</a></li><li><a href="09-Advanced-SQL/ROW-NUMBER-RANK-DENSE-RANK.md">ROW NUMBER RANK DENSE RANK</a></li><li><a href="09-Advanced-SQL/LAG-LEAD.md">LAG LEAD</a></li><li><a href="09-Advanced-SQL/Running-Totals-And-Moving-Averages.md">Running Totals And Moving Averages</a></li><li><a href="09-Advanced-SQL/Views.md">Views</a></li><li><a href="09-Advanced-SQL/Indexes.md">Indexes</a></li><li><a href="09-Advanced-SQL/Query-Optimization.md">Query Optimization</a></li><li><a href="09-Advanced-SQL/EXPLAIN-And-Execution-Plans.md">EXPLAIN And Execution Plans</a></li><li><a href="09-Advanced-SQL/Stored-Procedures.md">Stored Procedures</a></li><li><a href="09-Advanced-SQL/Stored-Functions.md">Stored Functions</a></li><li><a href="09-Advanced-SQL/Triggers.md">Triggers</a></li><li><a href="09-Advanced-SQL/Events-And-Scheduled-Tasks.md">Events And Scheduled Tasks</a></li><li><a href="09-Advanced-SQL/Advanced-SQL-Practice.sql">Advanced-SQL-Practice.sql</a></li></ul></div></details>
+<details class="ch" open><summary>10 Database Objects — 4 notes + practice</summary><div class="body"><ul class="tight"><li><a href="10-Database-Objects/ALTER-DROP-TRUNCATE.md">ALTER DROP TRUNCATE</a></li><li><a href="10-Database-Objects/Temporary-Tables.md">Temporary Tables</a></li><li><a href="10-Database-Objects/Information-Schema.md">Information Schema</a></li><li><a href="10-Database-Objects/Metadata-And-Database-Inspection.md">Metadata And Inspection</a></li><li><a href="10-Database-Objects/Database-Objects-Practice.sql">Database-Objects-Practice.sql</a></li></ul></div></details>
+</section>
+<section class="section" id="practice"><h2>Practice and Interview Prep</h2><p class="sub">Solve alone first, then check answers.</p><div class="grid"><div class="card"><h3>Join Practice</h3><a href="05-Joins/Join-Practice.sql">Open SQL file</a></div><div class="card"><h3>Subquery Practice</h3><a href="06-Subqueries-And-Set-Operations/Subquery-Practice.sql">Open SQL file</a></div><div class="card"><h3>Data Modification</h3><a href="07-Data-Modification/Data-Modification-Practice.sql">Open SQL file</a></div><div class="card"><h3>Design Practice</h3><a href="08-Database-Design/Database-Design-Practice.sql">Open SQL file</a></div><div class="card"><h3>Advanced Practice</h3><a href="09-Advanced-SQL/Advanced-SQL-Practice.sql">Open SQL file</a></div><div class="card"><h3>Objects Practice</h3><a href="10-Database-Objects/Database-Objects-Practice.sql">Open SQL file</a></div></div><br><p><b>Interview focus:</b> join types, anti-joins, IN vs EXISTS, NOT IN NULL trap, ANY ALL, UNION vs ALL, transactions and ACID, keys, normalization to BCNF, CTEs, ranking ties, LAG LEAD, views, leftmost index rule, EXPLAIN, procedures vs functions, triggers, events.</p></section>
+</div>
+<footer class="footer"><b style="color:#fff">Complete SQL Notes</b><br>MySQL 8.0+ study site. One note per day. Run every query.<br><a href="README.md">README</a> | <a href="#start">Back to top</a></footer>
+</body>
+</html>
