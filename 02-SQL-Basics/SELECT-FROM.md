@@ -1,63 +1,63 @@
-﻿SELECT ... FROM
-===============
+# SELECT From
 
+> Part of **Complete SQL Notes** (`02-SQL-Basics`). [Back to roadmap](../README.md).
 
-DEFINITION
+## Definition
 
+```sql
 SELECT retrieves data from a table.
+```
+
 FROM tells SQL which table to look in.
 
 Together SELECT ... FROM is the minimum required to fetch any data.
 
+## Syntax
 
-
-SYNTAX
-
-    SELECT column1, column2, ...
-    FROM   table_name;
+```sql
+SELECT column1, column2, ...
+FROM   table_name;
+```
 
 To retrieve all columns, use * (asterisk):
 
-    SELECT *
-    FROM   table_name;
+```sql
+SELECT *
+FROM   table_name;
+```
 
+## Clause Explained
 
+| Clause | Required | Purpose |
+| --- | --- | --- |
+| SELECT | Yes | List the columns you want to see |
+| column1, column2 | Yes | Comma-separated column names |
+| * | Option | Means "give me every column" |
+| FROM | Yes | Specifies the source table |
+| table_name | Yes | The table to read from |
 
-CLAUSE EXPLANATION
+**REFERENCE DATA (students table)**
 
-Clause              Required   Purpose
-SELECT              Yes        List the columns you want to see
-column1, column2    Yes        Comma-separated column names
-*                   Option     Means "give me every column"
-FROM                Yes        Specifies the source table
-table_name          Yes        The table to read from
+| student_id | name | age | gender | email | dept_id | enrollment_year |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | Abhishek | 20 | M | abhishek@college.edu | 1 | 2023 |
+| 2 | Jeevan | 21 | M | jeevan@college.edu | 1 | 2022 |
+| 3 | Likhith | 20 | M | likhith@college.edu | 2 | 2023 |
+| 4 | Jeevitha | 19 | F | jeevitha@college.edu | 2 | 2023 |
+| 5 | Manjunath | 22 | M | manjunath@college.edu | 3 | 2022 |
 
+## Examples
 
-
-REFERENCE DATA (students table)
-
-+------------+-----------+-----+--------+-----------------------+---------+-----------------+
-| student_id | name      | age | gender | email                 | dept_id | enrollment_year |
-+------------+-----------+-----+--------+-----------------------+---------+-----------------+
-|          1 | Abhishek  |  20 | M      | abhishek@college.edu  |       1 |            2023 |
-|          2 | Jeevan    |  21 | M      | jeevan@college.edu    |       1 |            2022 |
-|          3 | Likhith   |  20 | M      | likhith@college.edu   |       2 |            2023 |
-|          4 | Jeevitha  |  19 | F      | jeevitha@college.edu  |       2 |            2023 |
-|          5 | Manjunath |  22 | M      | manjunath@college.edu |       3 |            2022 |
-+------------+-----------+-----+--------+-----------------------+---------+-----------------+
-
-
-
-EXAMPLES
-
-Example 1 - Select all columns
+### Example 1 - Select all columns
 
 ```sql
 USE sql_notes;
 SELECT * FROM students;
 ```
 
-Output:
+**Output:**
+
+```text
 +------------+-----------+-----+--------+-----------------------+---------+-----------------+
 | student_id | name      | age | gender | email                 | dept_id | enrollment_year |
 +------------+-----------+-----+--------+-----------------------+---------+-----------------+
@@ -68,17 +68,18 @@ Output:
 |          5 | Manjunath |  22 | M      | manjunath@college.edu |       3 |            2022 |
 +------------+-----------+-----+--------+-----------------------+---------+-----------------+
 5 rows in set
+```
 
-
-
-Example 2 - Select specific columns
+### Example 2 - Select specific columns
 
 ```sql
 SELECT name, age
 FROM students;
 ```
 
-Output:
+**Output:**
+
+```text
 +-----------+-----+
 | name      | age |
 +-----------+-----+
@@ -89,17 +90,18 @@ Output:
 | Manjunath |  22 |
 +-----------+-----+
 5 rows in set
+```
 
-
-
-Example 3 - Select columns in a custom order
+### Example 3 - Select columns in a custom order
 
 ```sql
 SELECT email, name, student_id
 FROM students;
 ```
 
-Output:
+**Output:**
+
+```text
 +-----------------------+-----------+------------+
 | email                 | name      | student_id |
 +-----------------------+-----------+------------+
@@ -110,10 +112,9 @@ Output:
 | manjunath@college.edu | Manjunath |          5 |
 +-----------------------+-----------+------------+
 5 rows in set
+```
 
-
-
-Example 4 - Column alias with AS
+### Example 4 - Column alias with AS
 
 AS renames a column in the output. It does not change the actual column name
 in the table.
@@ -123,7 +124,9 @@ SELECT name AS student_name, age AS student_age
 FROM students;
 ```
 
-Output:
+**Output:**
+
+```text
 +--------------+-------------+
 | student_name | student_age |
 +--------------+-------------+
@@ -134,17 +137,18 @@ Output:
 | Manjunath    |          22 |
 +--------------+-------------+
 5 rows in set
+```
 
-
-
-Example 5 - Static label in SELECT
+### Example 5 - Static label in SELECT
 
 ```sql
 SELECT name, 'sql_notes' AS project
 FROM students;
 ```
 
-Output:
+**Output:**
+
+```text
 +-----------+-----------+
 | name      | project   |
 +-----------+-----------+
@@ -155,16 +159,17 @@ Output:
 | Manjunath | sql_notes |
 +-----------+-----------+
 5 rows in set
+```
 
-
-
-Example 6 - Select all from courses
+### Example 6 - Select all from courses
 
 ```sql
 SELECT * FROM courses;
 ```
 
-Output:
+**Output:**
+
+```text
 +-----------+------------------------+---------+---------+
 | course_id | course_name            | credits | dept_id |
 +-----------+------------------------+---------+---------+
@@ -175,14 +180,16 @@ Output:
 |         5 | Digital Electronics    |       4 |       3 |
 +-----------+------------------------+---------+---------+
 5 rows in set
+```
 
-
-
-HOW THE QUERY RUNS (STEP BY STEP)
+## How the Query Runs
 
 Query:
-    SELECT name, enrollment_year
-    FROM   students;
+
+```sql
+SELECT name, enrollment_year
+FROM   students;
+```
 
 Step 1: MySQL reads FROM -- it finds the students table.
 Step 2: MySQL scans every row in students.
@@ -190,49 +197,52 @@ Step 3: For each row it picks only the columns listed: name and enrollment_year.
 Step 4: It returns those values as the result.
 
 Note: MySQL processes FROM before SELECT internally, even though you write
+
+```sql
 SELECT first.
+```
 
+## MySQL vs Other Databases
 
+| Feature | MySQL | PostgreSQL | SQL Server |
+| --- | --- | --- | --- |
+| SELECT without FROM | Allowed | Allowed | Requires FROM |
+| AS keyword for alias | Optional | Required | Optional |
+| Table alias | Supported | Supported | Supported |
 
-MYSQL VS. OTHER DATABASES
+## Common Mistakes
 
-Feature                   MySQL            PostgreSQL       SQL Server
-SELECT without FROM       Allowed          Allowed          Requires FROM
-AS keyword for alias      Optional         Required         Optional
-Table alias               Supported        Supported        Supported
-
-
-
-COMMON MISTAKES
-
-1. Forgetting USE before the query
+## Forgetting USE before the query
    Error: No database selected
    Fix:   USE sql_notes; before SELECT.
 
-2. Selecting a column that does not exist
+## Selecting a column that does not exist
    Error: Unknown column 'phone' in field list
    Fix:   Run DESCRIBE students; to check column names.
 
-3. Trailing comma after the last column
-   Wrong:  SELECT name, age,  FROM students;
-   Right:  SELECT name, age   FROM students;
+## Trailing comma after the last column
 
-4. Swapping table name and column name
+| Wrong: | SELECT name, age, | FROM students; |
+| --- | --- | --- |
+| Right: | SELECT name, age | FROM students; |
+
+## Swapping table name and column name
    Wrong:  SELECT students FROM name;
    Right:  SELECT name FROM students;
 
+## Practice Questions
 
+**Q1. Display only the name and email of all students.**
 
-PRACTICE QUESTIONS
-
-Q1. Display only the name and email of all students.
-
-Answer:
+- **Answer:**
 ```sql
 SELECT name, email
 FROM students;
 ```
-Output:
+
+**Output:**
+
+```text
 +-----------+-----------------------+
 | name      | email                 |
 +-----------+-----------------------+
@@ -242,15 +252,18 @@ Output:
 | Jeevitha  | jeevitha@college.edu  |
 | Manjunath | manjunath@college.edu |
 +-----------+-----------------------+
+```
 
+**Q2. Display all columns from the departments table.**
 
-Q2. Display all columns from the departments table.
-
-Answer:
+- **Answer:**
 ```sql
 SELECT * FROM departments;
 ```
-Output:
+
+**Output:**
+
+```text
 +---------+------------------------+------------------+
 | dept_id | dept_name              | hod_name         |
 +---------+------------------------+------------------+
@@ -258,16 +271,19 @@ Output:
 |       2 | Information Science    | Dr. Priya Nair   |
 |       3 | Electronics            | Dr. Suresh Babu  |
 +---------+------------------------+------------------+
+```
 
+**Q3. Display course_name and credits, alias credits as credit_points.**
 
-Q3. Display course_name and credits, alias credits as credit_points.
-
-Answer:
+- **Answer:**
 ```sql
 SELECT course_name, credits AS credit_points
 FROM courses;
 ```
-Output:
+
+**Output:**
+
+```text
 +---------------------+--------------+
 | course_name         | credit_points|
 +---------------------+--------------+
@@ -277,34 +293,34 @@ Output:
 | Operating Systems   |            3 |
 | Digital Electronics |            4 |
 +---------------------+--------------+
+```
 
+**Q4. Show each student's name with a static label 'sql_notes' aliased as project.**
 
-Q4. Show each student's name with a static label 'sql_notes' aliased as project.
-
-Answer:
+- **Answer:**
 ```sql
 SELECT name, 'sql_notes' AS project
 FROM students;
 ```
 
+**Q5. What is wrong with this query? Fix it.**
 
-Q5. What is wrong with this query? Fix it.
-    SELECT * students;
+```sql
+SELECT * students;
+```
 
-Answer: The FROM keyword is missing.
+- **Answer:** The FROM keyword is missing.
 ```sql
 SELECT * FROM students;
 ```
 
-
-
-REVISION SUMMARY
+## Revision Summary
 
 SELECT        = Specifies columns to retrieve
+
 FROM          = Specifies the source table
 *             = Selects all columns
 AS            = Renames a column in the output (alias)
 Column order  = Controlled by the order listed in SELECT
 Execution     = MySQL processes FROM first, then SELECT
 Semicolon     = Required at the end in the MySQL CLI
-

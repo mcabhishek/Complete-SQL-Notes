@@ -1,8 +1,8 @@
-﻿LEFT JOIN
-=========
+# Left Join
 
+> Part of **Complete SQL Notes** (`05-Joins`). [Back to roadmap](../README.md).
 
-DEFINITION
+## Definition
 
 LEFT JOIN returns all rows from the left table, and the matching rows from
 the right table. If there is no match in the right table, the right side
@@ -10,8 +10,7 @@ columns appear as NULL.
 
 Also written as: LEFT OUTER JOIN (OUTER is optional in MySQL).
 
-
-WHY IT IS NEEDED
+## Why It Is Needed
 
 Use LEFT JOIN when you want to keep every record from the left table even
 if there is no related record in the right table. Common uses:
@@ -19,23 +18,21 @@ if there is no related record in the right table. Common uses:
 - Find departments with no students.
 - Find courses with no attendance records.
 
+## Syntax
 
-SYNTAX
+```sql
+SELECT columns
+FROM   left_table
+LEFT JOIN right_table ON left_table.column = right_table.column;
+```
 
-    SELECT columns
-    FROM   left_table
-    LEFT JOIN right_table ON left_table.column = right_table.column;
-
-
-SYNTAX EXPLANATION
+## Syntax Explained
 
 left_table          Every row from this table is always included.
 right_table         Only matching rows are included. Non-matching rows get NULL.
 ON condition        The column that links the two tables.
 
-
-
-REFERENCE DATA
+## Reference Data
 
 departments:
   1-Computer Science   2-Information Science   3-Electronics
@@ -48,11 +45,9 @@ enrollments: all 5 students have at least one enrollment record.
 To show LEFT JOIN returning NULLs, we use a hypothetical or the departments
 vs students relationship where a department could have no students.
 
+## Examples
 
-
-EXAMPLES
-
-Example 1 - All students with their enrollment records (matched)
+### Example 1 - All students with their enrollment records (matched)
 
 ```sql
 SELECT s.name, e.enrollment_id, e.course_id
@@ -60,7 +55,9 @@ FROM   students s
 LEFT JOIN enrollments e ON s.student_id = e.student_id;
 ```
 
-Output:
+**Output:**
+
+```text
 +-----------+---------------+-----------+
 | name      | enrollment_id | course_id |
 +-----------+---------------+-----------+
@@ -74,14 +71,13 @@ Output:
 | Manjunath |             8 |         5 |
 +-----------+---------------+-----------+
 8 rows in set
+```
 
 All students have enrollments, so no NULL appears here.
 If a student had no enrollment, their row would show NULL for enrollment_id
 and course_id.
 
-
-
-Example 2 - Find students who have NO enrollment (NULL detection)
+### Example 2 - Find students who have NO enrollment (NULL detection)
 
 This query finds students where the right side returns NULL, meaning
 no match was found in enrollments.
@@ -93,13 +89,13 @@ LEFT JOIN enrollments e ON s.student_id = e.student_id
 WHERE  e.enrollment_id IS NULL;
 ```
 
-Output:
+**Output:**
+
+```text
 Empty set (0 rows)
+```
 
-
-
-
-Example 3 - All departments with their students (some depts may have none)
+### Example 3 - All departments with their students (some depts may have none)
 
 ```sql
 SELECT d.dept_name, s.name
@@ -107,7 +103,9 @@ FROM   departments d
 LEFT JOIN students s ON d.dept_id = s.dept_id;
 ```
 
-Output:
+**Output:**
+
+```text
 +------------------------+-----------+
 | dept_name              | name      |
 +------------------------+-----------+
@@ -118,13 +116,12 @@ Output:
 | Electronics            | Manjunath |
 +------------------------+-----------+
 5 rows in set
+```
 
 All departments have students here. If Electronics had no students, it would
 appear with NULL in the name column.
 
-
-
-Example 4 - All courses with their enrollment count (including unenrolled courses)
+### Example 4 - All courses with their enrollment count (including unenrolled courses)
 
 ```sql
 SELECT c.course_name, COUNT(e.enrollment_id) AS enrolled_count
@@ -133,7 +130,9 @@ LEFT JOIN enrollments e ON c.course_id = e.course_id
 GROUP BY c.course_id, c.course_name;
 ```
 
-Output:
+**Output:**
+
+```text
 +------------------------+----------------+
 | course_name            | enrolled_count |
 +------------------------+----------------+
@@ -144,13 +143,12 @@ Output:
 | Digital Electronics    |              1 |
 +------------------------+----------------+
 5 rows in set
+```
 
 Note: COUNT(e.enrollment_id) counts only non-NULL values, so a course with
 no enrollments would show 0 instead of NULL.
 
-
-
-Example 5 - All students with their marks (LEFT JOIN to include all students)
+### Example 5 - All students with their marks (LEFT JOIN to include all students)
 
 ```sql
 SELECT s.name, e.course_id, m.marks_obtained, m.grade
@@ -159,7 +157,9 @@ LEFT JOIN enrollments e ON s.student_id    = e.student_id
 LEFT JOIN marks       m ON e.enrollment_id = m.enrollment_id;
 ```
 
-Output:
+**Output:**
+
+```text
 +-----------+-----------+----------------+-------+
 | name      | course_id | marks_obtained | grade |
 +-----------+-----------+----------------+-------+
@@ -173,10 +173,9 @@ Output:
 | Manjunath |         5 |          82.00 | A     |
 +-----------+-----------+----------------+-------+
 8 rows in set
+```
 
-
-
-Example 6 - Left table: departments, show courses offered per department
+### Example 6 - Left table: departments, show courses offered per department
 
 ```sql
 SELECT d.dept_name, COUNT(c.course_id) AS course_count
@@ -185,7 +184,9 @@ LEFT JOIN courses c ON d.dept_id = c.dept_id
 GROUP BY d.dept_id, d.dept_name;
 ```
 
-Output:
+**Output:**
+
+```text
 +------------------------+--------------+
 | dept_name              | course_count |
 +------------------------+--------------+
@@ -194,10 +195,9 @@ Output:
 | Electronics            |            1 |
 +------------------------+--------------+
 3 rows in set
+```
 
-
-
-Example 7 - Students with attendance, show all even if attendance is missing
+### Example 7 - Students with attendance, show all even if attendance is missing
 
 ```sql
 SELECT s.name, c.course_name, a.percentage
@@ -207,7 +207,9 @@ LEFT JOIN courses    c ON a.course_id  = c.course_id
 ORDER BY s.name;
 ```
 
-Output:
+**Output:**
+
+```text
 +-----------+------------------------+------------+
 | name      | course_name            | percentage |
 +-----------+------------------------+------------+
@@ -221,16 +223,18 @@ Output:
 | Manjunath | Digital Electronics    |      70.00 |
 +-----------+------------------------+------------+
 8 rows in set
+```
 
-
-
-HOW THE QUERY RUNS (STEP BY STEP)
+## How the Query Runs
 
 Query:
-    SELECT s.name, e.enrollment_id
-    FROM   students s
-    LEFT JOIN enrollments e ON s.student_id = e.student_id
-    WHERE  e.enrollment_id IS NULL;
+
+```sql
+SELECT s.name, e.enrollment_id
+FROM   students s
+LEFT JOIN enrollments e ON s.student_id = e.student_id
+WHERE  e.enrollment_id IS NULL;
+```
 
 Step 1: Start with ALL rows from students (left table) -- 5 rows.
 Step 2: For each student, look for matching rows in enrollments.
@@ -243,20 +247,17 @@ Step 2: For each student, look for matching rows in enrollments.
 Step 3: WHERE e.enrollment_id IS NULL -- filters to only unmatched rows.
 Step 4: Result is empty because every student has at least one enrollment.
 
+## Left join vs inner join
 
+| Result | INNER JOIN | LEFT JOIN |
+| --- | --- | --- |
+| Unmatched left rows | Excluded | Included (NULLs on right) |
+| Unmatched right rows | Excluded | Excluded |
+| Use case | Need matching data | Need all left rows |
 
-LEFT JOIN VS INNER JOIN
+## Common Mistakes
 
-Result                    INNER JOIN          LEFT JOIN
-Unmatched left rows       Excluded            Included (NULLs on right)
-Unmatched right rows      Excluded            Excluded
-Use case                  Need matching data  Need all left rows
-
-
-
-COMMON MISTAKES
-
-1. Using INNER JOIN when you want to include unmatched rows
+## Using INNER JOIN when you want to include unmatched rows
    Use LEFT JOIN when the left table rows must always appear.
 
 2. Filtering on the right table in WHERE (converts LEFT JOIN to INNER JOIN)
@@ -270,17 +271,15 @@ COMMON MISTAKES
    COUNT(*) counts NULL rows too. Use COUNT(e.enrollment_id) to count
    only matched rows.
 
-4. Confusing which table is left and which is right
+## Confusing which table is left and which is right
    The table after FROM is always the LEFT table.
    The table after LEFT JOIN is the RIGHT table.
 
-5. Chaining LEFT JOINs inconsistently
+## Chaining LEFT JOINs inconsistently
    If you LEFT JOIN a second table to the result of the first join,
    use LEFT JOIN consistently, not a mix of INNER JOIN and LEFT JOIN.
 
-
-
-EXAMINATION AND INTERVIEW POINTS
+## Exam and Interview Points
 
 - LEFT JOIN = LEFT OUTER JOIN. Both mean the same thing.
 - The left table always contributes all its rows.
@@ -289,13 +288,11 @@ EXAMINATION AND INTERVIEW POINTS
 - Filtering the right side in WHERE converts LEFT JOIN to INNER JOIN.
 - Filter conditions specific to the right table belong in ON, not WHERE.
 
+## Practice Questions
 
+**Q1. Show all students and their enrollment_id. Include students with no enrollments.**
 
-PRACTICE QUESTIONS
-
-Q1. Show all students and their enrollment_id. Include students with no enrollments.
-
-Answer:
+- **Answer:**
 ```sql
 SELECT s.name, e.enrollment_id
 FROM   students s
@@ -303,10 +300,9 @@ LEFT JOIN enrollments e ON s.student_id = e.student_id;
 ```
 All 5 students appear. In our data, all have enrollments, so no NULLs.
 
+**Q2. Find all departments and how many students belong to each.**
 
-Q2. Find all departments and how many students belong to each.
-
-Answer:
+- **Answer:**
 ```sql
 SELECT d.dept_name, COUNT(s.student_id) AS student_count
 FROM   departments d
@@ -315,10 +311,9 @@ GROUP BY d.dept_id, d.dept_name;
 ```
 Output: CS=2, IS=2, Electronics=1
 
+**Q3. Show all students with their average marks. Include students who have no marks.**
 
-Q3. Show all students with their average marks. Include students who have no marks.
-
-Answer:
+- **Answer:**
 ```sql
 SELECT s.name, ROUND(AVG(m.marks_obtained), 2) AS avg_marks
 FROM   students    s
@@ -327,10 +322,9 @@ LEFT JOIN marks       m ON e.enrollment_id = m.enrollment_id
 GROUP BY s.student_id, s.name;
 ```
 
+**Q4. List all courses and the number of students enrolled. Show 0 for empty courses.**
 
-Q4. List all courses and the number of students enrolled. Show 0 for empty courses.
-
-Answer:
+- **Answer:**
 ```sql
 SELECT c.course_name, COUNT(e.enrollment_id) AS enrolled
 FROM   courses c
@@ -338,10 +332,9 @@ LEFT JOIN enrollments e ON c.course_id = e.course_id
 GROUP BY c.course_id, c.course_name;
 ```
 
+**Q5. Find courses that have no student enrolled (unenrolled courses).**
 
-Q5. Find courses that have no student enrolled (unenrolled courses).
-
-Answer:
+- **Answer:**
 ```sql
 SELECT c.course_name
 FROM   courses c
@@ -350,9 +343,7 @@ WHERE  e.enrollment_id IS NULL;
 ```
 Result: Empty set (all 5 courses have at least one student in our data).
 
-
-
-REVISION SUMMARY
+## Revision Summary
 
 LEFT JOIN           Returns ALL rows from left table, matched rows from right
 Unmatched right     Columns appear as NULL
@@ -360,4 +351,3 @@ Detect no match     WHERE right_column IS NULL
 COUNT carefully     Use COUNT(right_column), not COUNT(*), for unmatched rows
 Filter placement    Right-table filters belong in ON clause, not WHERE
 OUTER keyword       Optional -- LEFT JOIN = LEFT OUTER JOIN
-

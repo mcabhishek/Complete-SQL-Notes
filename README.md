@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # Complete SQL Notes — Learn SQL from Zero to Advanced
 
@@ -100,16 +100,24 @@ Setup scripts:
 </details>
 
 <details>
-<summary>Stage 4 — Operators, NULL Handling, Functions (not yet available)</summary>
+<summary>Stage 4 — Operators, NULL Handling, Functions</summary>
 
-Not yet available. Planned: LIKE, BETWEEN, IN, NULL, string and date functions.
+- [LIKE Pattern Matching](03-Operators-And-Functions/LIKE-Pattern-Matching.md)
+- [BETWEEN IN Operators](03-Operators-And-Functions/BETWEEN-IN-Operators.md)
+- [NULL Handling](03-Operators-And-Functions/NULL-Handling.md)
+- [String Functions](03-Operators-And-Functions/String-Functions.md)
+- [Numeric Date CASE Functions](03-Operators-And-Functions/Numeric-Date-CASE-Functions.md)
+- [Operators Functions Practice SQL](03-Operators-And-Functions/Operators-Functions-Practice.sql)
 
 </details>
 
 <details>
-<summary>Stage 5 — Aggregate Functions, GROUP BY, HAVING (not yet available)</summary>
+<summary>Stage 5 — Aggregate Functions, GROUP BY, HAVING</summary>
 
-Not yet available. Planned: COUNT, SUM, AVG, MIN, MAX, GROUP BY, HAVING.
+- [Aggregate Functions](04-Aggregation-And-Grouping/Aggregate-Functions.md)
+- [GROUP BY](04-Aggregation-And-Grouping/GROUP-BY.md)
+- [HAVING Clause](04-Aggregation-And-Grouping/HAVING-Clause.md)
+- [Aggregation Practice SQL](04-Aggregation-And-Grouping/Aggregation-Practice.sql)
 
 </details>
 

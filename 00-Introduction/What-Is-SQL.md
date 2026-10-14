@@ -1,8 +1,8 @@
-﻿WHAT IS SQL?
-============
+# What Is SQL
 
+> Part of **Complete SQL Notes** (`00-Introduction`). [Back to roadmap](../README.md).
 
-DEFINITION
+## Definition
 
 SQL stands for Structured Query Language. It is a language used to communicate
 with relational databases. It lets you create, read, update, and delete data
@@ -13,9 +13,7 @@ whose only job is to talk to databases.
 
 SQL is pronounced either as "S-Q-L" or "sequel" -- both are accepted.
 
-
-
-WHY SQL MATTERS
+## Why sql matters
 
 Use Case              Example
 Store data            Save student records for a college
@@ -24,27 +22,27 @@ Modify data           Update a student's email address
 Delete data           Remove a withdrawn student's record
 Manage access         Allow a teacher to only read marks, not delete them
 
-
-
-A SIMPLE EXAMPLE
+## A simple example
 
 Imagine a table called students:
 
-  +------------+-----------+-----+
-  | student_id | name      | age |
-  +------------+-----------+-----+
-  |          1 | Abhishek  |  20 |
-  |          2 | Jeevan    |  21 |
-  |          3 | Likhith   |  20 |
-  |          4 | Jeevitha  |  19 |
-  |          5 | Manjunath |  22 |
-  +------------+-----------+-----+
+| student_id | name | age |
+| --- | --- | --- |
+| 1 | Abhishek | 20 |
+| 2 | Jeevan | 21 |
+| 3 | Likhith | 20 |
+| 4 | Jeevitha | 19 |
+| 5 | Manjunath | 22 |
 
 To fetch all student names you write:
 
-    SELECT name FROM students;
+```sql
+SELECT name FROM students;
+```
 
-Output:
+**Output:**
+
+```text
 
   +-----------+
   | name      |
@@ -55,12 +53,11 @@ Output:
   | Jeevitha  |
   | Manjunath |
   +-----------+
+```
 
 That is SQL. One line and you retrieved data from a table.
 
-
-
-HISTORY OF SQL
+## History of sql
 
 Year    Event
 1970    Edgar F. Codd (IBM) published the relational model for databases
@@ -70,15 +67,14 @@ Year    Event
 1987    SQL became an ISO standard
 Today   Used by MySQL, PostgreSQL, SQL Server, Oracle, SQLite, and more
 
+## Sql vs. other languages
 
-
-SQL VS. OTHER LANGUAGES
-
-Feature       SQL                     Python
-Type          Query language          Programming language
-Purpose       Talk to databases       General computing
-Loops         No (uses set ops)       Yes
-Readability   English-like            High
+| Feature | SQL | Python |
+| --- | --- | --- |
+| Type | Query language | Programming language |
+| Purpose | Talk to databases | General computing |
+| Loops | No (uses set ops) | Yes |
+| Readability | English-like | High |
 
 SQL is used inside Python, Java, and other languages to talk to a database:
 
@@ -93,46 +89,42 @@ for row in cursor.fetchall():
     print(row)
 ```
 
+## Popular sql databases
 
-
-POPULAR SQL DATABASES
-
-Database     Made by          Common Use
-MySQL        Oracle           Web apps, LAMP stack
-PostgreSQL   Open-source      Advanced features, open-source projects
-SQL Server   Microsoft        Enterprise, Windows environments
-Oracle DB    Oracle           Large enterprise systems
-SQLite       Open-source      Mobile apps, embedded systems
+| Database | Made by | Common Use |
+| --- | --- | --- |
+| MySQL | Oracle | Web apps, LAMP stack |
+| PostgreSQL | Open-source | Advanced features, open-source projects |
+| SQL Server | Microsoft | Enterprise, Windows environments |
+| Oracle DB | Oracle | Large enterprise systems |
+| SQLite | Open-source | Mobile apps, embedded systems |
 
 This project uses MySQL 8.0+.
 
+## MySQL vs Other Databases
 
+| Feature | MySQL 8.0 | PostgreSQL | SQL Server |
+| --- | --- | --- | --- |
+| String quotes | Single or double | Single only | Single only |
+| Auto increment | AUTO_INCREMENT | SERIAL | IDENTITY |
+| Limit rows | LIMIT n | LIMIT n | TOP n |
+| Case sensitive? | No (default) | Yes | No |
 
-MYSQL VS. OTHER DATABASES
+## Common Mistakes
 
-Feature              MySQL 8.0           PostgreSQL       SQL Server
-String quotes        Single or double    Single only      Single only
-Auto increment       AUTO_INCREMENT      SERIAL           IDENTITY
-Limit rows           LIMIT n             LIMIT n          TOP n
-Case sensitive?      No (default)        Yes              No
-
-
-
-COMMON MISTAKES
-
-1. Forgetting the semicolon
+## Forgetting the semicolon
    Every SQL statement must end with ; in the MySQL CLI.
 
    Wrong:   SELECT name FROM students
    Right:   SELECT name FROM students;
 
-2. Using double quotes for strings
+## Using double quotes for strings
    In MySQL always use single quotes for string values.
 
    May cause errors:  WHERE name = "Abhishek"
    Correct:           WHERE name = 'Abhishek'
 
-3. Thinking SQL keywords are case-sensitive
+## Thinking SQL keywords are case-sensitive
    They are not. SELECT, select, and Select all work the same.
    Convention is to write keywords in UPPERCASE.
 
@@ -142,37 +134,41 @@ COMMON MISTAKES
    Wrong:  WHERE age == 20
    Right:  WHERE age = 20
 
-5. Forgetting to select the right database
+## Forgetting to select the right database
    Always run USE sql_notes; before your queries.
 
+## Practice Questions
 
+**Q1. What does SQL stand for?**
 
-PRACTICE QUESTIONS
+- **Answer:** Structured Query Language.
 
-Q1. What does SQL stand for?
-Answer: Structured Query Language.
+**Q2. Is SQL a programming language? Explain.**
 
-Q2. Is SQL a programming language? Explain.
-Answer: No. SQL is a query language designed specifically to interact with
+- **Answer:** No. SQL is a query language designed specifically to interact with
 relational databases. It cannot perform general tasks like file I/O on its own.
 
-Q3. Which company owns MySQL?
-Answer: Oracle Corporation (originally developed by MySQL AB, released as
+**Q3. Which company owns MySQL?**
+
+- **Answer:** Oracle Corporation (originally developed by MySQL AB, released as
 open-source under GPL).
 
-Q4. Write a SQL query to display all records from the courses table.
-Answer:
-    SELECT * FROM courses;
+**Q4. Write a SQL query to display all records from the courses table.**
 
-Q5. What is the difference between LIMIT in MySQL and TOP in SQL Server?
-Answer:
+- **Answer:**
+
+```sql
+SELECT * FROM courses;
+```
+
+**Q5. What is the difference between LIMIT in MySQL and TOP in SQL Server?**
+
+- **Answer:**
   MySQL:       SELECT * FROM students LIMIT 3;
   SQL Server:  SELECT TOP 3 * FROM students;
   Both limit the number of rows returned but with different syntax.
 
-
-
-REVISION SUMMARY
+## Revision Summary
 
 SQL             = Structured Query Language
 Purpose         = Communicate with relational databases
@@ -181,4 +177,3 @@ This project    = MySQL 8.0+
 Keywords        = Not case-sensitive
 Statements end  = With a semicolon ;
 String values   = Use single quotes 'value'
-

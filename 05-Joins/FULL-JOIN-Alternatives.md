@@ -1,8 +1,8 @@
-﻿FULL OUTER JOIN -- ALTERNATIVES IN MYSQL
-========================================
+# FULL JOIN Alternatives
 
+> Part of **Complete SQL Notes** (`05-Joins`). [Back to roadmap](../README.md).
 
-DEFINITION
+## Definition
 
 A FULL OUTER JOIN returns all rows from both tables. Where a match exists,
 the columns from both tables are filled in. Where no match exists, the
@@ -10,8 +10,7 @@ unmatched side columns appear as NULL.
 
 Result = rows from LEFT JOIN + rows from RIGHT JOIN (without duplicates).
 
-
-WHY IT IS NEEDED
+## Why It Is Needed
 
 Use FULL OUTER JOIN when you need to see ALL records from both tables,
 including unmatched ones from either side.
@@ -21,8 +20,7 @@ Examples:
 - See all departments AND all students, including students with no department
   assignment (if allowed) and departments with no students.
 
-
-MYSQL LIMITATION
+## MySQL Limitation
 
 MySQL 8.0 does NOT support FULL OUTER JOIN syntax directly.
 
@@ -36,30 +34,31 @@ FULL OUTER JOIN courses c ON s.student_id = c.course_id;
 
 MySQL equivalent must be built using UNION of a LEFT JOIN and a RIGHT JOIN.
 
+## MySQL Equivalent Syntax
 
-
-MYSQL EQUIVALENT SYNTAX
-
-    SELECT columns
-    FROM   table1
-    LEFT JOIN table2 ON table1.col = table2.col
+```sql
+SELECT columns
+FROM   table1
+LEFT JOIN table2 ON table1.col = table2.col
+```
 
     UNION
 
-    SELECT columns
-    FROM   table1
-    RIGHT JOIN table2 ON table1.col = table2.col;
+```sql
+SELECT columns
+FROM   table1
+RIGHT JOIN table2 ON table1.col = table2.col;
+```
 
 UNION removes duplicate rows automatically.
 If you want to keep duplicates, use UNION ALL (but this is rarely correct
 for a FULL OUTER JOIN simulation).
 
+## Reference Data
 
-
-REFERENCE DATA
-
-students:  1-Abhishek  2-Jeevan  3-Likhith  4-Jeevitha  5-Manjunath
-courses:   1-DBMS  2-DS  3-CN  4-OS  5-DE
+| students: | 1-Abhishek | 2-Jeevan | 3-Likhith | 4-Jeevitha | 5-Manjunath |
+| --- | --- | --- | --- | --- | --- |
+| courses: | 1-DBMS | 2-DS | 3-CN | 4-OS | 5-DE |
 
 In our data:
 - All 5 students have at least one enrollment.
@@ -71,11 +70,9 @@ To clearly demonstrate FULL OUTER JOIN behavior, examples below show it
 between tables that could have unmatched rows (departments and courses
 if any department had no courses, or vice versa).
 
+## Examples
 
-
-EXAMPLES
-
-Example 1 - FULL OUTER JOIN simulation: all students and all courses
+### Example 1 - FULL OUTER JOIN simulation: all students and all courses
 
 This shows every student alongside every course they are enrolled in, plus:
 - Students with no enrollment (NULL on course side)
@@ -93,7 +90,9 @@ RIGHT JOIN enrollments e2 ON s.student_id = e2.student_id
 RIGHT JOIN courses     c  ON e2.course_id = c.course_id;
 ```
 
-Output (in our data all match, so same as INNER JOIN result):
+**Output:**
+
+```text
 +-----------+------------------------+
 | name      | course_name            |
 +-----------+------------------------+
@@ -107,10 +106,9 @@ Output (in our data all match, so same as INNER JOIN result):
 | Manjunath | Digital Electronics    |
 +-----------+------------------------+
 8 rows in set
+```
 
-
-
-Example 2 - Cleaner FULL OUTER JOIN simulation: departments and students
+### Example 2 - Cleaner FULL OUTER JOIN simulation: departments and students
 
 ```sql
 SELECT d.dept_name, s.name
@@ -122,7 +120,9 @@ FROM   departments d
 RIGHT JOIN students s ON d.dept_id = s.dept_id;
 ```
 
-Output:
+**Output:**
+
+```text
 +------------------------+-----------+
 | dept_name              | name      |
 +------------------------+-----------+
@@ -133,14 +133,13 @@ Output:
 | Electronics            | Manjunath |
 +------------------------+-----------+
 5 rows in set
+```
 
 No NULLs because every student belongs to a department and every department
 has students. If a new department had no students, its row would appear with
 NULL in the name column.
 
-
-
-Example 3 - FULL OUTER JOIN with NULL detection (both sides)
+### Example 3 - FULL OUTER JOIN with NULL detection (both sides)
 
 Shows unmatched rows from either side.
 
@@ -158,7 +157,9 @@ LEFT JOIN students    s ON e.student_id = s.student_id
 ORDER BY student_name;
 ```
 
-Output (same 8 rows in our complete dataset, no NULLs present):
+**Output:**
+
+```text
 +--------------+------------------------+
 | student_name | enrolled_course        |
 +--------------+------------------------+
@@ -172,10 +173,9 @@ Output (same 8 rows in our complete dataset, no NULLs present):
 | Manjunath    | Digital Electronics    |
 +--------------+------------------------+
 8 rows in set
+```
 
-
-
-Example 4 - Avoiding duplicates with UNION (not UNION ALL)
+### Example 4 - Avoiding duplicates with UNION (not UNION ALL)
 
 UNION automatically removes duplicate rows.
 UNION ALL keeps all rows, including duplicates.
@@ -192,9 +192,7 @@ UNION ALL
 SELECT dept_name FROM departments RIGHT JOIN students s ON departments.dept_id = s.dept_id;
 ```
 
-
-
-Example 5 - FULL OUTER JOIN with only unmatched rows (anti-join on both sides)
+### Example 5 - FULL OUTER JOIN with only unmatched rows (anti-join on both sides)
 
 ```sql
 SELECT s.name AS unmatched_student, NULL AS unmatched_course
@@ -208,21 +206,26 @@ LEFT JOIN enrollments e ON c.course_id = e.course_id
 WHERE  e.enrollment_id IS NULL;
 ```
 
-Output:
+**Output:**
+
+```text
 Empty set (0 rows)
+```
 
-
-
-HOW THE QUERY RUNS (STEP BY STEP)
+## How the Query Runs
 
 Query (FULL OUTER JOIN simulation):
-    SELECT d.dept_name, s.name
-    FROM   departments d
-    LEFT JOIN students s ON d.dept_id = s.dept_id
-    UNION
-    SELECT d.dept_name, s.name
-    FROM   departments d
-    RIGHT JOIN students s ON d.dept_id = s.dept_id;
+
+SELECT d.dept_name, s.name
+FROM   departments d
+LEFT JOIN students s ON d.dept_id = s.dept_id
+UNION
+
+```sql
+SELECT d.dept_name, s.name
+FROM   departments d
+RIGHT JOIN students s ON d.dept_id = s.dept_id;
+```
 
 Step 1: Run the LEFT JOIN part.
         - Returns all 3 departments, each with their students.
@@ -235,9 +238,7 @@ Step 3: UNION combines the two result sets and removes duplicates.
           result is 5 rows (same as either half).
 Step 4: Final output: 5 rows showing all departments and students.
 
-
-
-POSTGRESQL AND SQL SERVER COMPARISON
+## Postgresql and sql server comparison
 
 Database          FULL OUTER JOIN syntax
 MySQL 8.0         NOT supported -- use LEFT JOIN UNION RIGHT JOIN
@@ -251,32 +252,28 @@ FROM   students s
 FULL OUTER JOIN courses c ON s.student_id = c.course_id;
 ```
 
+## Common Mistakes
 
-
-COMMON MISTAKES
-
-1. Trying to write FULL OUTER JOIN directly in MySQL
+## Trying to write FULL OUTER JOIN directly in MySQL
    MySQL does not support it. Use the UNION approach.
 
-2. Using UNION ALL instead of UNION in the simulation
+## Using UNION ALL instead of UNION in the simulation
    UNION ALL keeps duplicate rows. This gives incorrect FULL OUTER JOIN behavior.
    Always use UNION to remove duplicates.
 
-3. Mismatched column count in UNION parts
+## Mismatched column count in UNION parts
    Both SELECT statements in the UNION must have the same number of columns.
    Wrong:  SELECT name FROM ... UNION SELECT dept_name, course_name FROM ...;
 
-4. Different data types in UNION columns
+## Different data types in UNION columns
    The column data types in both SELECT statements must be compatible.
 
-5. Applying ORDER BY to only one part of the UNION
+## Applying ORDER BY to only one part of the UNION
    Place ORDER BY at the very end, after the second SELECT.
    Wrong:  SELECT ... ORDER BY name UNION SELECT ...;
    Right:  SELECT ... UNION SELECT ... ORDER BY name;
 
-
-
-EXAMINATION AND INTERVIEW POINTS
+## Exam and Interview Points
 
 - MySQL 8.0 does NOT support FULL OUTER JOIN syntax.
 - Simulate it with: LEFT JOIN UNION RIGHT JOIN.
@@ -285,15 +282,14 @@ EXAMINATION AND INTERVIEW POINTS
 - In exams: write the UNION simulation when asked for FULL OUTER JOIN in MySQL.
 - In interviews: mention the limitation and demonstrate the workaround.
 
+## Practice Questions
 
+**Q1. Write a MySQL-compatible FULL OUTER JOIN to show all departments and**
 
-PRACTICE QUESTIONS
-
-Q1. Write a MySQL-compatible FULL OUTER JOIN to show all departments and
     all students (even if a department has no students or a student has
     no department).
 
-Answer:
+- **Answer:**
 ```sql
 SELECT d.dept_name, s.name
 FROM   departments d
@@ -304,27 +300,26 @@ FROM   departments d
 RIGHT JOIN students s ON d.dept_id = s.dept_id;
 ```
 
+**Q2. Why does MySQL not support FULL OUTER JOIN directly?**
 
-Q2. Why does MySQL not support FULL OUTER JOIN directly?
-
-Answer:
+- **Answer:**
 MySQL 8.0 did not implement FULL OUTER JOIN syntax. It is a known limitation.
 The UNION-based workaround achieves the same result.
 
+**Q3. What is the difference between UNION and UNION ALL in the FULL OUTER JOIN**
 
-Q3. What is the difference between UNION and UNION ALL in the FULL OUTER JOIN
     simulation?
 
-Answer:
+- **Answer:**
 UNION removes duplicate rows that appear in both the LEFT JOIN result and the
 RIGHT JOIN result. UNION ALL keeps all rows, potentially causing duplicates
 where both sides matched. Use UNION for correct FULL OUTER JOIN behavior.
 
+**Q4. Write a query to find all students who have no marks AND all courses that**
 
-Q4. Write a query to find all students who have no marks AND all courses that
     have no marks (unmatched rows on both sides).
 
-Answer:
+- **Answer:**
 ```sql
 SELECT s.name AS item, 'No marks (student)' AS reason
 FROM   students s
@@ -340,16 +335,13 @@ WHERE  m.mark_id IS NULL;
 ```
 Result: Empty set (all have marks in our data).
 
+**Q5. Which databases support FULL OUTER JOIN natively, and which do not?**
 
-Q5. Which databases support FULL OUTER JOIN natively, and which do not?
-
-Answer:
+- **Answer:**
 Supported: PostgreSQL, SQL Server, Oracle.
 Not supported (MySQL 8.0): Must use LEFT JOIN UNION RIGHT JOIN.
 
-
-
-REVISION SUMMARY
+## Revision Summary
 
 FULL OUTER JOIN     Returns all rows from both tables; NULL fills unmatched side
 MySQL support       NOT available -- simulate with LEFT JOIN UNION RIGHT JOIN
@@ -357,4 +349,3 @@ UNION               Removes duplicate rows (use this for simulation)
 UNION ALL           Keeps duplicates (incorrect for FULL OUTER simulation)
 Same column count   Both parts of UNION must select the same number of columns
 NULL detection      WHERE left_col IS NULL or WHERE right_col IS NULL
-
